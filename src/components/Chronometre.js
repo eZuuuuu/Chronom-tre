@@ -10,18 +10,18 @@ class Chronometre extends React.Component {
 
   }
 
-  // modificationDuStatePlusUn() {
-  //   this.setState({ compteurBase: this.state.compteurBase + 1 });
-  // };
+  modificationDuStatePlusUn() {
+    this.setState({ compteurBase: this.state.compteurBase + 1 });
+  };
 
 
-  // modificationDuStateMoinsUn() {
-  //   this.setState({ compteurBase: this.state.compteurBase - 1 });
-  // };
+  modificationDuStateMoinsUn() {
+    this.setState({ compteurBase: this.state.compteurBase - 1 });
+  };
 
-  // modificationDuStateRemiseAZero() {
-  //   this.setState({ compteurBase: this.state.compteurBase = 0});
-  // };
+  modificationDuStateRemiseAZero() {
+    this.setState({ compteurBase: this.state.compteurBase = 0});
+  };
 
   modificationTimer() {
     this.interval = setInterval(
@@ -32,14 +32,23 @@ class Chronometre extends React.Component {
   };
 
   pauseTimer() {
-    console.log("pauseTimer", this.pauseTimer)
     clearInterval(this.interval)
   };
-  // this.state({compteurBase: this.state.compteurBase })
+
+  revenirAZero() {
+    console.log("re start", this.revenirAZero)
+    this.setState({ compteurBase: 0 })
+    clearInterval(this.interval)
+  }
+
   render() {
     return (
       <div className="App" >
-        <h2>{this.state.compteurBase}</h2>
+        <button onClick={event => {
+          {
+            this.revenirAZero();
+          }
+        }}>RE START</button>
         <button onClick={event => {
           {
             this.pauseTimer();
@@ -49,10 +58,10 @@ class Chronometre extends React.Component {
           {
             this.modificationTimer();
           }
-        }}>++</button>
-        {/* <Affichage affichageDuChrono={this.state.compteurBase} /> */}
-        {/* <FonctionnaliteDuChrono fonctionnaliteDuChrono={this.state.compteurBase} fonctionnaliteDuChronoPlusUn={() => this.modificationDuStatePlusUn()}
-        fonctionnaliteDuChronoMoinsUn={() => this.modificationDuStateMoinsUn()} fonctionnaliteDuChronoRemiseAZero={() => this.modificationDuStateRemiseAZero()} /> */}
+        }}>START</button>
+        <Affichage affichageDuChrono={this.state.compteurBase} />
+        <FonctionnaliteDuChrono fonctionnaliteDuChrono={this.state.compteurBase} fonctionnaliteDuChronoPlusUn={() => this.modificationDuStatePlusUn()}
+          fonctionnaliteDuChronoMoinsUn={() => this.modificationDuStateMoinsUn()} fonctionnaliteDuChronoRemiseAZero={() => this.modificationDuStateRemiseAZero()} />
 
       </div>
     );
