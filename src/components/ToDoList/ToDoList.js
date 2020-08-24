@@ -22,11 +22,15 @@ class ToDoList extends React.Component {
     this.setState({ taches: [...this.state.taches, this.state.valeurChamp] })
   }
 
-  supprimerUnetache(element) {
+  supprimerUnetache(e) {
     this.setState({
-      taches: [...this.state.taches.slice(0, element), ...this.state.taches.slice(element + 1)]
+      taches: [...this.state.taches.slice(0, e), ...this.state.taches.slice(e + 1)]
     });
 
+  }
+
+  finirUneTache() {
+    this.setState({ taches: [...this.state.taches, this.state.valeurChamp] })
   }
 
   render() {
@@ -36,10 +40,11 @@ class ToDoList extends React.Component {
         <input type="text" value={this.state.valeurChamp} onChange={this.ecrireUneTache} />
 
         <button onClick={this.ajouterUneTache}>Ajout d'une tache</button>
-        {this.state.taches.map((add, element) => (
+        {this.state.taches.map((add, element, finir) => (
           <div>
             <p>{add}</p>
             <button onClick={() => this.supprimerUnetache(element)}>Supprimer</button>
+            <input type="checkbox" onchange={()=> this.finirUneTache} />
           </div>
         ))}
       </div>
