@@ -20,7 +20,7 @@ class Chronometre extends React.Component {
   };
 
   modificationDuStateRemiseAZero() {
-    this.setState({ compteurBase: this.state.compteurBase = 0});
+    this.setState({ compteurBase: 0 });
   };
 
   modificationTimer() {
@@ -36,7 +36,6 @@ class Chronometre extends React.Component {
   };
 
   revenirAZero() {
-    console.log("re start", this.revenirAZero)
     this.setState({ compteurBase: 0 })
     clearInterval(this.interval)
   }
@@ -44,30 +43,13 @@ class Chronometre extends React.Component {
   render() {
     return (
       <div className="App" >
-        <button onClick={event => {
-          {
-            this.revenirAZero();
-          }
-        }}>RE START</button>
-        <button onClick={event => {
-          {
-            this.pauseTimer();
-          }
-        }}>Pause</button>
-        <button onClick={event => {
-          {
-            this.modificationTimer();
-          }
-        }}>START</button>
         <Affichage affichageDuChrono={this.state.compteurBase} />
         <FonctionnaliteDuChrono fonctionnaliteDuChrono={this.state.compteurBase} fonctionnaliteDuChronoPlusUn={() => this.modificationDuStatePlusUn()}
-          fonctionnaliteDuChronoMoinsUn={() => this.modificationDuStateMoinsUn()} fonctionnaliteDuChronoRemiseAZero={() => this.modificationDuStateRemiseAZero()} />
-
+          fonctionnaliteDuChronoMoinsUn={() => this.modificationDuStateMoinsUn()} fonctionnaliteDuChronoRemiseAZero={() => this.modificationDuStateRemiseAZero()} fonctionnaliteDuChronoTimer={() => this.modificationTimer()}
+          fonctionnaliteDuChronoTimerPause={() => this.pauseTimer()} fonctionnaliteDuChronoTimerRestart={() => this.revenirAZero()} />
       </div>
     );
   }
 }
 
 export default Chronometre;
-
-// {compteurBase: this.state.compteurBase })

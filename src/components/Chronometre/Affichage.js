@@ -9,10 +9,11 @@ class Affichage extends React.Component {
 
   render() {
     return (
-    <div className="button">
-      <h1>{this.props.affichageDuChrono}</h1>
+      <div className="button">
+        <h1>{this.props.affichageDuChrono}</h1>
       </div>
-  );
-  }}
- 
-  export default Affichage;
+    );
+  }
+}
+
+export default Affichage;

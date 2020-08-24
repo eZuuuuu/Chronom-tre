@@ -1,12 +1,13 @@
 import React from 'react';
 import './App.css';
-import Chronometre from './components/Chronometre';
-import Affichage from './components/Affichage';
+import Chronometre from './components/Chronometre/Chronometre';
+import ToDolist from './components/ToDoList/ToDoList';
 
 function App() {
   return (
     <div className="App">
       <Chronometre/>
+      <ToDolist/>
     </div>
   );
 }
