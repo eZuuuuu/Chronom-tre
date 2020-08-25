@@ -6,11 +6,13 @@ class ToDoList extends React.Component {
     super(props);
     this.state = {
       valeurChamp: '',
-      taches: []
+      taches: [],
+      validation: false,
     };
 
     this.ecrireUneTache = this.ecrireUneTache.bind(this);
     this.ajouterUneTache = this.ajouterUneTache.bind(this);
+    this.finirUneTache = this.finirUneTache.bind(this);
 
   }
 
@@ -19,36 +21,47 @@ class ToDoList extends React.Component {
   }
 
   ajouterUneTache() {
-    this.setState({ taches: [...this.state.taches, this.state.valeurChamp] })
+    let newTaches = [...this.state.taches];
+
+    let newTache = {
+      titre: this.state.valeurChamp,
+      terminee: false,
+    }
+
+    newTaches.push(newTache)
+
+    this.setState({ taches: newTaches })
   }
 
-  supprimerUnetache(e) {
-    this.setState({
-      taches: [...this.state.taches.slice(0, e), ...this.state.taches.slice(e + 1)]
-    });
-
+  supprimerUnetache(index) {
+    let newTaches = [...this.state.taches];
+    newTaches.splice(index, 1)
+    this.setState({ taches: newTaches })
   }
 
-  finirUneTache() {
-    this.setState({ taches: [...this.state.taches, this.state.valeurChamp] })
+  finirUneTache(index) {
+    let newFinirTaches = [...this.state.taches];
+    let newTache = { ...newFinirTaches[index] };
+    newTache.terminee = true;
+    newFinirTaches.splice(index, 1, newTache)
+    this.setState({ taches: newFinirTaches })
   }
 
   render() {
-    console.log('pwett', this.state)
-    return (
-      <div className="App" >
+    return ([
+      <div className="App">
         <input type="text" value={this.state.valeurChamp} onChange={this.ecrireUneTache} />
-
         <button onClick={this.ajouterUneTache}>Ajout d'une tache</button>
-        {this.state.taches.map((add, element, finir) => (
-          <div>
-            <p>{add}</p>
-            <button onClick={() => this.supprimerUnetache(element)}>Supprimer</button>
-            <input type="checkbox" onchange={()=> this.finirUneTache} />
-          </div>
-        ))}
+        {this.state.taches.map((tache, index, taches) => {
+          return (
+            <div key={index}>
+              <li onClick={() => this.finirUneTache(index)} style={{ textDecoration: tache.terminee ? "line-through" : false }}><p>{tache.titre}</p></li>
+              <button onClick={() => this.supprimerUnetache(index)}>Supprimer</button>
+            </div>
+          )
+        })}
       </div>
-    );
+    ]);
   }
 }
 
