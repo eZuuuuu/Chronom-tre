@@ -1,78 +1,63 @@
 import React, { Component } from 'react';
 
+const CHAMP_VIDE_DEPART = "";
 
-const VALEUR_INITIALE_CHAMPS = '';
-
-class ToDoList extends React.Component {
-
-
+class ToDoLIst extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      valeurChamp: '',
-      taches: [],
-      validation: false,
-    };
-
-    this.ecrireUneTache = this.ecrireUneTache.bind(this);
+      champInitial: '',
+      champ: [],
+    }
+    this.modifierChamp = this.modifierChamp.bind(this);
     this.ajouterUneTache = this.ajouterUneTache.bind(this);
-    this.finirUneTache = this.finirUneTache.bind(this);
-    this.champReset = this.champReset.bind(this);
-
+    this.supprimerUnetache = this.supprimerUnetache.bind(this);
   }
 
-  ecrireUneTache(event) {
-    this.setState({ valeurChamp: event.target.value })
-  }
+  modifierChamp(event) {
+    this.setState({ champInitial: event.target.value });
+  };
 
   ajouterUneTache() {
-    let newTaches = [...this.state.taches];
-    
-    let newTache = {
-      titre: this.state.valeurChamp,
-      terminee: false,
-    }
-    newTaches.push(newTache)
-    this.setState({ taches: newTaches })
-
-    this.champReset();
+    var champEcris = this.state.champInitial
+    var champEcris2 = [...this.state.champ, { titre: champEcris, terminee: false }]
+    this.setState({ champ: champEcris2 })
+    this.setState({ champInitial: CHAMP_VIDE_DEPART });
   }
 
   supprimerUnetache(index) {
-    let newTaches = [...this.state.taches];
-    newTaches.splice(index, 1)
-    this.setState({ taches: newTaches })
+    var suppChamp = [...this.state.champ]
+    suppChamp.splice(index, 1)
+    this.setState({ champ: suppChamp })
   }
 
-  finirUneTache(index) {
-    let newFinirTaches = [...this.state.taches];
-    let newTache = { ...newFinirTaches[index] };
-    newTache.terminee = true;
-    newFinirTaches.splice(index, 1, newTache)
-    this.setState({ taches: newFinirTaches })
-  }
-
-  champReset() {
-    this.setState({ valeurChamp: VALEUR_INITIALE_CHAMPS})
+  tacheFinis(index) {
+    var tacheEnd = [...this.state.champ]
+    var tacheEnd2 = tacheEnd[index]
+    tacheEnd2.terminee = true;
+    tacheEnd.splice(0, tacheEnd2)
+    this.setState({ champ: tacheEnd })
   }
 
   render() {
-    return ([
-      <div className="App">
-        <input type="text" value={this.state.valeurChamp} onChange={this.ecrireUneTache} />
-        <button onClick={this.ajouterUneTache}>Ajout d'une tache</button>
-        
-        {this.state.taches.map((tache, index, taches) => {
+    return (
+      <div className="App" >
+        <input value={this.state.champInitial} onChange={this.modifierChamp}></input>
+        <button onClick={this.ajouterUneTache}>Ajouter</button>
+
+        {this.state.champ.map((item, index) => {
           return (
-            <div key={index}>
-              <li onClick={() => this.finirUneTache(index)} style={{ textDecoration: tache.terminee ? "line-through" : false }}><p>{tache.titre}</p></li>
-              <button onClick={() => this.supprimerUnetache(index)}>Supprimer</button>
-            </div>
+            <>
+              <p><li onClick={() => this.tacheFinis(index)} style={{ textDecoration: item.terminee ? "line-through" : false }}>{item.titre}</li></p>
+              <button onClick={() => this.supprimerUnetache(index)}>SUPP</button>
+            </>
           )
-        })}
+        })
+        }
+
       </div>
-    ]);
+    );
   }
 }
 
-export default ToDoList;
+export default ToDoLIst;
