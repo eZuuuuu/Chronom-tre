@@ -36,9 +36,6 @@ class ToDoList extends React.Component {
     this.setState({ taches: newTaches })
 
     this.champReset();
-
-    // let resetTaches = [...this.state.valeurChamp]
-    // && { taches: resetTaches }
   }
 
   supprimerUnetache(index) {
@@ -60,8 +57,6 @@ class ToDoList extends React.Component {
   }
 
   render() {
-    console.log('ok3', this.champReset)
-    console.log('ok3', this.state.valeurChamp)
     return ([
       <div className="App">
         <input type="text" value={this.state.valeurChamp} onChange={this.ecrireUneTache} />
